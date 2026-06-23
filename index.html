@@ -20,14 +20,14 @@
     .label-right { text-align: right; }
     input[type="range"] { flex-grow: 1; margin: 0 15px; cursor: pointer; }
     
-    /* 診断ボタンのデザインを追加 */
     .btn-diagnose { background: #e74c3c; color: white; border: none; padding: 16px 32px; font-size: 18px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.2s; width: 100%; margin-top: 30px; margin-bottom: 20px; display: block; }
     .btn-diagnose:hover { background: #c0392b; }
 
-    /* 初期状態を非表示(display: none)に変更 */
-    .result-area { display: none; margin-top: 40px; padding: 25px; background: #eef2f5; border-radius: 8px; text-align: center; position: sticky; bottom: 20px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); border: 2px solid #34495e; }
-    .type-name { font-size: 32px; font-weight: bold; letter-spacing: 4px; color: #2c3e50; margin-bottom: 10px; }
+    .result-area { display: none; margin-top: 40px; padding: 25px; background: #eef2f5; border-radius: 8px; text-align: center; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); border: 2px solid #34495e; }
+    .type-name { font-size: 32px; font-weight: bold; letter-spacing: 4px; color: #2c3e50; margin-bottom: 5px; }
+    .type-title { font-size: 20px; font-weight: bold; color: #e74c3c; margin-bottom: 15px; }
     .type-desc { font-size: 15px; text-align: left; color: #444; background: #fff; padding: 15px; border-radius: 6px; }
+    .type-details { text-align: left; font-size: 13px; color: #555; background: #fff; padding: 15px; border-radius: 6px; margin-top: 15px; line-height: 1.6; display: none; }
     
     .btn-copy { background: #34495e; color: white; border: none; padding: 12px 24px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: background 0.2s; margin-top: 20px; width: 100%; }
     .btn-copy:hover { background: #2c3e50; }
@@ -77,9 +77,10 @@
     <div id="result-area" class="result-area">
         <div style="font-size: 14px; color: #666; margin-bottom: 5px;">あなたの弱者タイプは</div>
         <div id="type-name" class="type-name">XXXX</div>
-        <div id="type-title" style="font-size: 20px; font-weight: bold; color: #e74c3c; margin-bottom: 15px;"></div>
+        <div id="type-title" class="type-title"></div>
         <div id="type-desc" class="type-desc"></div>
-        <div id="type-details" style="text-align: left; font-size: 13px; color: #555; background: #fff; padding: 15px; border-radius: 6px; margin-top: 15px; line-height: 1.6; display: none;"></div>
+        <div id="type-details" class="type-details"></div>
+        
         <button class="btn-copy" onclick="executeCopy()">📋 結果をコピーする</button>
         <div style="display:flex; gap:10px; margin-top:10px;">
             <button id="btn-toggle" class="btn-copy" style="margin-top:0; background:#7f8c8d; font-size:14px;" onclick="toggleDetails()">🔽 最小化する</button>
@@ -92,17 +93,6 @@
 <div id="toast" class="toast">コピーしました</div>
 
 <script>
-    const letterDetails = {
-        A: "<b>【A】アグレッシブ</b><br>ネット上では強気になり、他者への批判や攻撃的な発言を好むネット弁慶。<br><span style='font-size:11px;color:#888;'>※反対属性【M】ミュート：一切発信せず傍観に徹する</span>",
-        M: "<b>【M】ミュート</b><br>現実でもネットでも自ら発信することはなく、常に気配を消してROM（閲覧するだけの人）に徹する傍観者。<br><span style='font-size:11px;color:#888;'>※反対属性【A】アグレッシブ：ネット上で攻撃的な発言を好む</span>",
-        S: "<b>【S】ステレオタイプ</b><br>まとめサイトやSNSの偏ったテンプレ情報を世界の真実であると鵜呑みにする。<br><span style='font-size:11px;color:#888;'>※反対属性【D】ディルージョン：現実から目を背け妄想の世界に逃避する</span>",
-        D: "<b>【D】ディルージョン</b><br>現実から目を背け、脳内の都合の良い妄想（二次元や独自の設定）の世界に精神を避難させる。<br><span style='font-size:11px;color:#888;'>※反対属性【S】ステレオタイプ：ネットの偏った情報を鵜呑みにする</span>",
-        L: "<b>【L】ルーザーロジック</b><br>自分が評価されないのは社会や他人のせいであると、独自の屁理屈（敗者の論理）を用いて自己防衛を図る。<br><span style='font-size:11px;color:#888;'>※反対属性【V】ヴィクティム：自分は可哀想だと被害者意識に浸る</span>",
-        V: "<b>【V】ヴィクティム</b><br>常に「自分は可哀想である」という被害者意識を持ち、感情的に現状を嘆く悲劇のヒロイン思考。<br><span style='font-size:11px;color:#888;'>※反対属性【L】ルーザーロジック：社会や他人のせいにして屁理屈で自己防衛する</span>",
-        P: "<b>【P】プロクラスティネイト</b><br>現実の課題や面倒事をすべて先延ばしにし、無気力に時間を浪費する。<br><span style='font-size:11px;color:#888;'>※反対属性【C】コンパルジョン：無価値なルーティンを強迫的に繰り返す</span>",
-        C: "<b>【C】コンパルジョン</b><br>ソシャゲの周回や特定の掲示板の巡回など、無価値なルーティンを強迫的（やらないと気が済まない状態）に繰り返す。<br><span style='font-size:11px;color:#888;'>※反対属性【P】プロクラスティネイト：面倒事をすべて先延ばしにする</span>"
-    };
-
     const typeTitles = {
         "ASLP": "口撃型寝そべり族",
         "ASLC": "陰湿レスバトラー",
@@ -122,6 +112,17 @@
         "MDVC": "陰湿腐れハゲ"
     };
 
+    const letterDetails = {
+        A: "<b>【A】アグレッシブ</b><br>ネット上では強気になり、他者への批判や攻撃的な発言を好むネット弁慶。<br><span style='font-size:11px;color:#888;'>※反対属性【M】ミュート：一切発信せず傍観に徹する</span>",
+        M: "<b>【M】ミュート</b><br>現実でもネットでも自ら発信することはなく、常に気配を消してROM（閲覧するだけの人）に徹する傍観者。<br><span style='font-size:11px;color:#888;'>※反対属性【A】アグレッシブ：ネット上で攻撃的な発言を好む</span>",
+        S: "<b>【S】ステレオタイプ</b><br>まとめサイトやSNSの偏ったテンプレ情報を世界の真実であると鵜呑みにする。<br><span style='font-size:11px;color:#888;'>※反対属性【D】ディルージョン：現実から目を背け妄想の世界に逃避する</span>",
+        D: "<b>【D】ディルージョン</b><br>現実から目を背け、脳内の都合の良い妄想（二次元や独自の設定）の世界に精神を避難させる。<br><span style='font-size:11px;color:#888;'>※反対属性【S】ステレオタイプ：ネットの偏った情報を鵜呑みにする</span>",
+        L: "<b>【L】ルーザーロジック</b><br>自分が評価されないのは社会や他人のせいであると、独自の屁理屈（敗者の論理）を用いて自己防衛を図る。<br><span style='font-size:11px;color:#888;'>※反対属性【V】ヴィクティム：自分は可哀想だと被害者意識に浸る</span>",
+        V: "<b>【V】ヴィクティム</b><br>常に「自分は可哀想である」という被害者意識を持ち、感情的に現状を嘆く悲劇のヒロイン思考。<br><span style='font-size:11px;color:#888;'>※反対属性【L】ルーザーロジック：社会や他人のせいにして屁理屈で自己防衛する</span>",
+        P: "<b>【P】プロクラスティネイト</b><br>現実の課題や面倒事をすべて先延ばしにし、無気力に時間を浪費する。<br><span style='font-size:11px;color:#888;'>※反対属性【C】コンパルジョン：無価値なルーティンを強迫的に繰り返す</span>",
+        C: "<b>【C】コンパルジョン</b><br>ソシャゲの周回や特定の掲示板の巡回など、無価値なルーティンを強迫的（やらないと気が済まない状態）に繰り返す。<br><span style='font-size:11px;color:#888;'>※反対属性【P】プロクラスティネイト：面倒事をすべて先延ばしにする</span>"
+    };
+
     const typeDescriptions = {
         A: "ネット上では雄弁に他者を叩く攻撃性を持ち、",
         M: "現実でもネットでも気配を消して傍観に徹し、",
@@ -133,7 +134,6 @@
         C: "ソシャゲの周回やネット巡回など、無価値なルーティンに強迫的に縛られて生きるタイプである。" 
     };
 
-    // 計算処理のみを行う関数
     function calculateResult() {
         const getVal = (id) => parseInt(document.getElementById(id).value);
         
@@ -154,86 +154,33 @@
                    typeDescriptions[type.charAt(3)];
 
         document.getElementById('type-name').innerText = type;
-        document.getElementById('type-desc').innerText = desc;
         document.getElementById('type-title').innerText = typeTitles[type];
+        document.getElementById('type-desc').innerText = desc;
 
         let detailsHtml = letterDetails[type.charAt(0)] + "<hr style='border:none; border-top:1px dashed #ccc; margin:12px 0;'>" + 
                           letterDetails[type.charAt(1)] + "<hr style='border:none; border-top:1px dashed #ccc; margin:12px 0;'>" + 
                           letterDetails[type.charAt(2)] + "<hr style='border:none; border-top:1px dashed #ccc; margin:12px 0;'>" + 
                           letterDetails[type.charAt(3)];
         document.getElementById('type-details').innerHTML = detailsHtml;
-        document.getElementById('type-details').style.display = "block";
     }
 
-    // 診断ボタンが押された際の表示切り替え処理
     function showResult() {
         calculateResult();
         document.getElementById('result-area').style.display = 'block';
-        document.getElementById('btn-diagnose').style.display = 'none'; // 診断後はボタンを非表示にする
+        document.getElementById('type-details').style.display = 'block';
+        document.getElementById('btn-diagnose').style.display = 'none';
         
-        // 画面下部へ滑らかにスクロールさせる
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    }
-
-    function executeCopy() {
-        const type = document.getElementById('type-name').innerText;
-        const title = typeTitles[type];
-        const desc = document.getElementById('type-desc').innerText;
-        
-        // 文字列から「※反対属性...」以降を切り捨てて純粋な説明文を作る関数
-        const getCleanText = (letter) => {
-            let text = letterDetails[letter];
-            text = text.split("<br><span")[0]; // spanタグ以降（反対属性）を削除
-            text = text.replace("<b>", "").replace("</b>", ""); // 太字タグを削除
-            text = text.replace("<br>", "
-"); // 改行タグをテキストの改行に変換
-            return text;
-        };
-
-        // 4文字分の詳細テキストを結合
-        let detailsText = getCleanText(type.charAt(0)) + "
-
-" + 
-                          getCleanText(type.charAt(1)) + "
-
-" + 
-                          getCleanText(type.charAt(2)) + "
-
-" + 
-                          getCleanText(type.charAt(3));
-
-        // クリップボードにコピーする文章のフォーマット
-        const text = `【弱者MBTI診断】
-私のタイプは「${type}（${title}）」です。
-
-${desc}
-
-${detailsText}
-
-👇診断はこちらから
-https://project-1yzp5.vercel.app/
-#弱者MBTI`;
-        
-        navigator.clipboard.writeText(text).then(() => {
-            let toast = document.getElementById('toast');
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 2500);
-        }).catch(err => {
-            alert('コピーに失敗しました。');
-        });
     }
 
     function toggleDetails() {
         let details = document.getElementById('type-details');
-        let desc = document.getElementById('type-desc');
         let btn = document.getElementById('btn-toggle');
         if (details.style.display === 'none') {
             details.style.display = 'block';
-            desc.style.display = 'block';
             btn.innerText = '🔽 最小化する';
         } else {
             details.style.display = 'none';
-            desc.style.display = 'none';
             btn.innerText = '▶️ 詳細を見る';
         }
     }
@@ -243,12 +190,40 @@ https://project-1yzp5.vercel.app/
         document.getElementById('result-area').style.display = 'none';
         document.getElementById('btn-diagnose').style.display = 'block';
         
-        // 詳細表示状態をリセット
         document.getElementById('type-details').style.display = 'block';
-        document.getElementById('type-desc').style.display = 'block';
         document.getElementById('btn-toggle').innerText = '🔽 最小化する';
         
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function executeCopy() {
+        const type = document.getElementById('type-name').innerText;
+        const title = typeTitles[type];
+        const desc = document.getElementById('type-desc').innerText;
+        
+        // 反対属性（spanタグ以降）と太字タグを除外し、改行を整える処理
+        const getCleanText = (letter) => {
+            let text = letterDetails[letter];
+            text = text.split("<br><span")[0];
+            text = text.replace(/<b>/g, "").replace(/<\/b>/g, "");
+            text = text.replace(/<br>/g, "\n");
+            return text;
+        };
+
+        let detailsText = getCleanText(type.charAt(0)) + "\n\n" + 
+                          getCleanText(type.charAt(1)) + "\n\n" + 
+                          getCleanText(type.charAt(2)) + "\n\n" + 
+                          getCleanText(type.charAt(3));
+
+        const text = `【弱者MBTI診断】\n私のタイプは「${type}（${title}）」です。\n\n${desc}\n\n${detailsText}\n\n👇診断はこちらから\nhttps://project-1yzp5.vercel.app/\n#弱者MBTI`;
+        
+        navigator.clipboard.writeText(text).then(() => {
+            let toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }).catch(err => {
+            alert('コピーに失敗しました。');
+        });
     }
 </script>
 </body>
