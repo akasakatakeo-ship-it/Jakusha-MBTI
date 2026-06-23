@@ -14,7 +14,7 @@
     .question-title { font-size: 14px; font-weight: bold; margin-bottom: 15px; display: block; }
     
     .slider-container { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; }
-    .label-left, .label-right { font-size: 12px; color: #666; width: 60px; }
+    .label-left, .label-right { font-size: 12px; color: #666; width: 70px; }
     .label-right { text-align: right; }
     input[type="range"] { flex-grow: 1; margin: 0 15px; cursor: pointer; }
     
@@ -38,48 +38,48 @@
 
 <div class="container">
     <h1>弱者MBTI診断</h1>
-    <p class="description">直感でシークバーを動かし、20の極端な質問からあなたの弱者タイプ（全16種類）を特定します。</p>
+    <p class="description">ありのままの自分で直感的に回答し、あなたの弱者タイプ（全16種類）を特定してください。</p>
 
     <div id="questions">
-        <div class="question-group"><span class="question-title">Q1. 成功している人間やリア充を見ると、「親のすねをかじっただけ」「運が良かっただけ」と論理的にアラ探しをして見下す。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q13" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q1. 現実の生活で疲れたとき、アニメやゲームなど自分が安心できる架空の世界に浸る時間が何よりの癒やしになる。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q7" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
 
-        <div class="question-group"><span class="question-title">Q2. 嫌なことがあった日は、VTuberやアニメキャラなど「自分を絶対に否定しない2次元の存在」に完全に没入して癒やしを得る。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q7" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q2. 期限が決まっている課題や手続きは、ギリギリのタイミングになるまで着手する意欲が湧かないことが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q16" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
 
-        <div class="question-group"><span class="question-title">Q3. 何かやらないといけないことがあっても、何もする気が起きず、ただベッドに横たわって天井やスマホを無目的にながめて数時間が過ぎる。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q16" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q3. 世間で話題になっているニュースや炎上騒動に対し、自分なりの見解をコメントや引用で付け加えることが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q3" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
 
-        <div class="question-group"><span class="question-title">Q4. SNSや掲示板では、自分の意見に反論されるのが極端に恐ろしいため、絶対に「見る専（ROM）」を貫いている。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q2" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q4. 日常生活の中で、「自分は周囲から正当に評価されていない」「なぜ自分ばかり苦労するのか」と虚しさを感じることがある。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q12" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
 
-        <div class="question-group"><span class="question-title">Q5. X（旧Twitter）のタイムラインや特定の掲示板を、新しい情報がないと分かっていても強迫的に何度も更新（リロード）してしまう。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q19" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q5. 人の性格や行動を、「陽キャ」「チー牛」といったネット上の類型化された言葉で分類して考える傾向がある。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q8" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
 
-        <div class="question-group"><span class="question-title">Q6. 社会の真理は「顔」や「金」などの残酷なスペックで全て決まっており、まとめサイトの過激な現実論こそが正しいと思う。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q6" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q6. ゲームのログインボーナスや特定サイトの巡回など、毎日欠かさずこなさないと落ち着かない習慣がある。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q17" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
 
-        <div class="question-group"><span class="question-title">Q7. 自分が底辺にいるのは、自分の能力が低いからではなく、日本という国や社会のシステムが根本的に腐っているからだ。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q11" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q7. 物事がうまくいかないとき、自分の感情よりも「なぜ社会やシステムがそのような結果を招いたのか」を論理的に分析してしまう。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q11" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
 
-        <div class="question-group"><span class="question-title">Q8. 気に入らない意見を持つアカウントに対しては、捨て垢を使ってでも直接反撃や嫌がらせをしたくなる。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q3" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q8. 自分の発言が他人にどう思われるかが気になり、SNSでは投稿よりも閲覧に時間を使っている。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q2" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
 
-        <div class="question-group"><span class="question-title">Q9. 部屋のゴミ捨てや掃除など、数分で終わるはずの極めて簡単な作業すら、面倒くさくて数週間単位で放置してしまう。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q18" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q9. 部屋の片付けや不要なデータの整理など、やらなければいけないと分かっている小さなタスクを何週間も放置している。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q20" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
 
-        <div class="question-group"><span class="question-title">Q10. 夜中に一人でいると、「なぜ自分だけがこんな目に遭うのか」「誰も自分を愛してくれない」と惨めな気持ちになり涙が出そうになる。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q12" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q10. 世の中の成功や失敗は、個人の努力よりも「容姿」「資産」「環境」といった客観的なスペックでほぼ決まると思う。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q10" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
 
-        <div class="question-group"><span class="question-title">Q11. 現実世界のニュースや政治よりも、自分がハマっているゲームやアニメの設定考察について考えている時間の方が圧倒的に長い。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q9" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q11. 他人からアドバイスを受けた際、まずはその提案の論理的な矛盾や、自分には適用できない理由を探してしまう。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q15" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
 
-        <div class="question-group"><span class="question-title">Q12. 休日は、ソシャゲの周回イベントや動画サイトの巡回など、自分で決めたネット上の「日課」をこなすだけで忙しく終わってしまう。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q17" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q12. 実生活では口に出しにくい本音や不満でも、匿名のアカウントなら比較的スムーズに表現できる。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q4" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
 
-        <div class="question-group"><span class="question-title">Q13. ネット上で誰かが激しく争っているのを見ると、参加するどころか恐怖や疲労感を感じてそっとページを閉じる。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q5" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q13. 新しい情報が更新されていないと分かっていても、手持ち無沙汰になると無意識にSNSや掲示板をリロードしてしまう。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q19" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
 
-        <div class="question-group"><span class="question-title">Q14. 人間の性格や行動原理は、「チー牛」「陽キャ」「〇〇女」といったネット上の分かりやすい分類で完全に説明できると思う。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q10" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q14. 寝る前や移動中など、現実とは異なる設定の自分を想像して、頭の中で物語を展開させることがよくある。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q9" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
 
-        <div class="question-group"><span class="question-title">Q15. ネット上の炎上騒動を見た際、自分も匿名で批判や正論を書き込まないと気が済まない。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q1" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q15. 過去に受けた心の傷や理不尽な扱いを思い出し、今でも新鮮な悲しみや怒りを感じて塞ぎ込むことがある。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q14" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
 
-        <div class="question-group"><span class="question-title">Q16. 自分の人生がうまくいかないのは、生まれつきの容姿や発達の特性など「どうしようもない不幸（親ガチャ）」を背負わされたせいだと嘆いている。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q14" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q16. ネット上で意見が対立した際、自分の考えの正しさを論理的に指摘したくなる。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q1" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
 
-        <div class="question-group"><span class="question-title">Q17. 恋愛や対人関係の知識は、実際の経験よりも「ネット上の恋愛工学や非モテ論」のテンプレートを参考にしている。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q8" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q17. 休日は何か新しいことや生産的なことをしようと考えるが、結局いつもと同じように時間を消費して終わる。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q18" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
 
-        <div class="question-group"><span class="question-title">Q18. 締め切りや予定があっても、破綻が確定するギリギリ手遅れのラインまで絶対に体を動かさない。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q20" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q18. 複雑な社会問題の背景よりも、まとめサイトやSNSで要約された分かりやすい情報の方が納得しやすい。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q6" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
 
-        <div class="question-group"><span class="question-title">Q19. 他人からアドバイスをされた際、素直に聞き入れるどころか「それは論理的に破綻している」と心の中で反論し、自分の正しさを守る。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q15" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q19. 成功している人を見たとき、素直に称賛するよりも、その人が恵まれていた条件（環境や運）に目が行きやすい。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q13" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
 
-        <div class="question-group"><span class="question-title">Q20. 日常の鬱憤を晴らすため、ニュースや動画のコメント欄で意図的に攻撃的な言葉を書き込むことがある。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q4" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q20. 議論が白熱しているのを見ると、そこに参加するよりも距離を置いて静観する方が心地よい。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q5" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
 
         <button id="btn-diagnose" class="btn-diagnose" onclick="showResult()">診断する</button>
     </div>
