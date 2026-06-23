@@ -80,6 +80,10 @@
         <div id="type-desc" class="type-desc"></div>
         <div id="type-details" style="text-align: left; font-size: 13px; color: #555; background: #fff; padding: 15px; border-radius: 6px; margin-top: 15px; line-height: 1.6; display: none;"></div>
         <button class="btn-copy" onclick="executeCopy()">📋 結果をコピーする</button>
+        <div style="display:flex; gap:10px; margin-top:10px;">
+            <button id="btn-toggle" class="btn-copy" style="margin-top:0; background:#7f8c8d; font-size:14px;" onclick="toggleDetails()">🔽 最小化する</button>
+            <button id="btn-retake" class="btn-copy" style="margin-top:0; background:#95a5a6; font-size:14px;" onclick="retakeTest()">🔄 やり直す</button>
+        </div>
     </div>
 
 </div>
@@ -88,14 +92,14 @@
 
 <script>
     const letterDetails = {
-        A: "<b>【A】アグレッシブ</b><br>ネット上では強気になり、他者への批判や攻撃的な発言を好むネット弁慶。",
-        M: "<b>【M】ミュート</b><br>現実でもネットでも自ら発信することはなく、常に気配を消してROM（閲覧するだけの人）に徹する傍観者。",
-        S: "<b>【S】ステレオタイプ</b><br>まとめサイトやSNSの偏ったテンプレ情報を世界の真実であると鵜呑みにする。",
-        D: "<b>【D】ディルージョン</b><br>現実から目を背け、脳内の都合の良い妄想（二次元や独自の設定）の世界に精神を避難させる。",
-        L: "<b>【L】ルーザーロジック</b><br>自分が評価されないのは社会や他人のせいであると、独自の屁理屈（敗者の論理）を用いて自己防衛を図る。",
-        V: "<b>【V】ヴィクティム</b><br>常に「自分は可哀想である」という被害者意識を持ち、感情的に現状を嘆く悲劇のヒロイン思考。",
-        P: "<b>【P】プロクラスティネイト</b><br>現実の課題や面倒事をすべて先延ばしにし、無気力に時間を浪費する。",
-        C: "<b>【C】コンパルジョン</b><br>ソシャゲの周回や特定の掲示板の巡回など、無価値なルーティンを強迫的（やらないと気が済まない状態）に繰り返す。"
+        A: "<b>【A】アグレッシブ</b><br>ネット上では強気になり、他者への批判や攻撃的な発言を好むネット弁慶。<br><span style='font-size:11px;color:#888;'>※反対属性【M】ミュート：一切発信せず傍観に徹する</span>",
+        M: "<b>【M】ミュート</b><br>現実でもネットでも自ら発信することはなく、常に気配を消してROM（閲覧するだけの人）に徹する傍観者。<br><span style='font-size:11px;color:#888;'>※反対属性【A】アグレッシブ：ネット上で攻撃的な発言を好む</span>",
+        S: "<b>【S】ステレオタイプ</b><br>まとめサイトやSNSの偏ったテンプレ情報を世界の真実であると鵜呑みにする。<br><span style='font-size:11px;color:#888;'>※反対属性【D】ディルージョン：現実から目を背け妄想の世界に逃避する</span>",
+        D: "<b>【D】ディルージョン</b><br>現実から目を背け、脳内の都合の良い妄想（二次元や独自の設定）の世界に精神を避難させる。<br><span style='font-size:11px;color:#888;'>※反対属性【S】ステレオタイプ：ネットの偏った情報を鵜呑みにする</span>",
+        L: "<b>【L】ルーザーロジック</b><br>自分が評価されないのは社会や他人のせいであると、独自の屁理屈（敗者の論理）を用いて自己防衛を図る。<br><span style='font-size:11px;color:#888;'>※反対属性【V】ヴィクティム：自分は可哀想だと被害者意識に浸る</span>",
+        V: "<b>【V】ヴィクティム</b><br>常に「自分は可哀想である」という被害者意識を持ち、感情的に現状を嘆く悲劇のヒロイン思考。<br><span style='font-size:11px;color:#888;'>※反対属性【L】ルーザーロジック：社会や他人のせいにして屁理屈で自己防衛する</span>",
+        P: "<b>【P】プロクラスティネイト</b><br>現実の課題や面倒事をすべて先延ばしにし、無気力に時間を浪費する。<br><span style='font-size:11px;color:#888;'>※反対属性【C】コンパルジョン：無価値なルーティンを強迫的に繰り返す</span>",
+        C: "<b>【C】コンパルジョン</b><br>ソシャゲの周回や特定の掲示板の巡回など、無価値なルーティンを強迫的（やらないと気が済まない状態）に繰り返す。<br><span style='font-size:11px;color:#888;'>※反対属性【P】プロクラスティネイト：面倒事をすべて先延ばしにする</span>"
     };
 
     const typeDescriptions = {
@@ -162,6 +166,34 @@
         }).catch(err => {
             alert('コピーに失敗しました。');
         });
+    }
+
+    function toggleDetails() {
+        let details = document.getElementById('type-details');
+        let desc = document.getElementById('type-desc');
+        let btn = document.getElementById('btn-toggle');
+        if (details.style.display === 'none') {
+            details.style.display = 'block';
+            desc.style.display = 'block';
+            btn.innerText = '🔽 最小化する';
+        } else {
+            details.style.display = 'none';
+            desc.style.display = 'none';
+            btn.innerText = '▶️ 詳細を見る';
+        }
+    }
+
+    function retakeTest() {
+        document.querySelectorAll('.calc-slider').forEach(el => el.value = 50);
+        document.getElementById('result-area').style.display = 'none';
+        document.getElementById('btn-diagnose').style.display = 'block';
+        
+        // 詳細表示状態をリセット
+        document.getElementById('type-details').style.display = 'block';
+        document.getElementById('type-desc').style.display = 'block';
+        document.getElementById('btn-toggle').innerText = '🔽 最小化する';
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 </script>
 </body>
