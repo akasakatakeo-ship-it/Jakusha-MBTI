@@ -10,8 +10,6 @@
     h1 { font-size: 24px; text-align: center; border-bottom: 2px solid #e1e4e8; padding-bottom: 15px; margin-top: 0; }
     .description { font-size: 14px; color: #555; margin-bottom: 30px; text-align: center; }
     
-    .axis-title { font-size: 18px; font-weight: bold; color: #2c3e50; margin-top: 30px; margin-bottom: 10px; border-left: 4px solid #34495e; padding-left: 10px; }
-    
     .question-group { margin-bottom: 20px; padding: 15px; background: #fafafa; border-radius: 8px; border: 1px solid #eee; }
     .question-title { font-size: 14px; font-weight: bold; margin-bottom: 15px; display: block; }
     
@@ -43,33 +41,45 @@
     <p class="description">直感でシークバーを動かし、20の質問からあなたの弱者タイプ（全16種類）を特定します。</p>
 
     <div id="questions">
-        <div class="axis-title">1. コミュニケーションスタイル</div>
-        <div class="question-group"><span class="question-title">Q1. ネット上で他人の意見に対し、批判的なコメントや反論を書き込むことが多い。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q1" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
-        <div class="question-group"><span class="question-title">Q2. SNSや掲示板では基本的にROM（閲覧するだけの人）であり、自分から発信することはほぼない。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q2" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
-        <div class="question-group"><span class="question-title">Q3. 炎上しているインフルエンサーや企業を見ると、匿名で叩き（非難）に参加したくなる。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q3" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
-        <div class="question-group"><span class="question-title">Q4. 現実の人間関係では絶対に言えないような暴言でも、ネット上なら簡単に書き込める。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q4" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
-        <div class="question-group"><span class="question-title">Q5. 他人に否定されるのが怖いため、ネット上でも自分のアカウントで堂々と意見を主張することはない。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q5" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q1. アニメやゲームの世界の住人になった自分をよく想像し、現実のつらさから逃避している。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q7" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
 
-        <div class="axis-title">2. 認知の歪み</div>
-        <div class="question-group"><span class="question-title">Q6. 世の中の真実や正解は、まとめサイトやインフルエンサーの発言の中にあると思う。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q6" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
-        <div class="question-group"><span class="question-title">Q7. アニメやゲームの世界の住人になった自分をよく想像し、現実逃避をする。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q7" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
-        <div class="question-group"><span class="question-title">Q8. 特定の界隈で流行っているネットスラング（ネット上の俗語）を、現実の会話や思考でも無意識に使う。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q8" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
-        <div class="question-group"><span class="question-title">Q9. 嫌なことがあると、自分が異世界で特殊能力を持って無双（圧倒的に活躍）している姿を空想して気を紛らわせる。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q9" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
-        <div class="question-group"><span class="question-title">Q10. 「〇〇な人間は〇〇だ」という、ネット上の極端なレッテル貼り（偏見）をそのまま信じてしまう。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q10" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q2. 面倒な課題や手続きは、ギリギリになるか手遅れになるまで放置してしまう。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q16" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
 
-        <div class="axis-title">3. 自己正当化の手段</div>
-        <div class="question-group"><span class="question-title">Q11. 自分が評価されないのは、社会の仕組みや他人の見る目がないからだと論理的に説明できる。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q11" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
-        <div class="question-group"><span class="question-title">Q12. 日々の生活で「自分ばかり損をしている、かわいそうだ」と感情的に落ち込むことが多い。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q12" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
-        <div class="question-group"><span class="question-title">Q13. 成功している人を見ると、「親のすねをかじっただけ」「運が良かっただけ」と理由をつけて見下す。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q13" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
-        <div class="question-group"><span class="question-title">Q14. 自分の人生がうまくいかないのは、生まれ育った環境や遺伝のせいであり、自分ではどうしようもないと絶望している。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q14" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
-        <div class="question-group"><span class="question-title">Q15. 他人からアドバイスを受けた際、素直に聞き入れず、「でも」「だって」と反論して自分の正しさを主張する。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q15" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q3. 炎上しているインフルエンサーや企業を見ると、ここぞとばかりに匿名で叩きに参加する。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q3" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
 
-        <div class="axis-title">4. 行動パターン</div>
-        <div class="question-group"><span class="question-title">Q16. 面倒な課題や手続きは、ギリギリになるか手遅れになるまで放置してしまう。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q16" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
-        <div class="question-group"><span class="question-title">Q17. ソシャゲ（ソーシャルゲーム）のログインなど、毎日やらないと気が済まないルーティンがある。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q17" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
-        <div class="question-group"><span class="question-title">Q18. 休日は何か生産的なことをしようと思うものの、結局スマホを眺めるだけで1日が終わる。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q18" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
-        <div class="question-group"><span class="question-title">Q19. 掲示板やSNSを、新しい情報がないと分かっていても無意識に何度も更新（リロード）してしまう。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q19" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
-        <div class="question-group"><span class="question-title">Q20. 部屋の掃除や整理整頓が必要だと分かっていても、行動を起こす気力が湧かず長期間放置している。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q20" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q4. 日々の生活で「自分ばかり損をしている」「なぜ自分だけこんな目に」と感情的に落ち込むことが多い。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q12" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+
+        <div class="question-group"><span class="question-title">Q5. 特定の界隈で流行っているネットスラングやミームを、現実の会話や思考でも無意識に多用してしまう。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q8" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+
+        <div class="question-group"><span class="question-title">Q6. ソシャゲのスタミナ消費や日課など、毎日やらないと強いストレスを感じるルーティンがある。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q17" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+
+        <div class="question-group"><span class="question-title">Q7. 自分が世間で評価されないのは、社会の仕組みが腐っているか、他人の見る目がないからだと論理的に説明できる。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q11" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+
+        <div class="question-group"><span class="question-title">Q8. SNSや掲示板では完全にROM（見る専）であり、自分から発信・返信することは絶対にない。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q2" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+
+        <div class="question-group"><span class="question-title">Q9. 休日は何か生産的なことをしようと思うものの、結局布団やベッドの上でスマホを眺めるだけで終わる。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q20" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+
+        <div class="question-group"><span class="question-title">Q10. 「〇〇な人間は〇〇だ」といった、ネット上の極端なレッテル貼りや偏見を、疑わずにそのまま信じている。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q10" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+
+        <div class="question-group"><span class="question-title">Q11. 他人から正論やアドバイスを言われた際、素直に聞き入れず、「でも」「だって」と屁理屈をこねて自分の正しさを守る。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q15" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+
+        <div class="question-group"><span class="question-title">Q12. 現実の人間関係では絶対に言えないような暴言や過激な発言でも、ネット上なら簡単に書き込める。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q4" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+
+        <div class="question-group"><span class="question-title">Q13. 新しい情報がないと分かっていても、X（Twitter）や掲示板を無意識に何度もリロードしてしまう。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q19" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+
+        <div class="question-group"><span class="question-title">Q14. 嫌なことがあると、自分が異世界で特殊能力を持って無双している姿や、特別な存在である妄想をして気を紛らわせる。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q9" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+
+        <div class="question-group"><span class="question-title">Q15. 自分の人生がうまくいかないのは、生まれ育った環境や遺伝（親ガチャ）のせいであり、完全に被害者だと思っている。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q14" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+
+        <div class="question-group"><span class="question-title">Q16. ネット上で他人の意見に対し、論破や批判的なコメントを書き込むことに快感を覚える。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q1" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+
+        <div class="question-group"><span class="question-title">Q17. 部屋の掃除や整理整頓など、必要だと分かっていても無気力で長期間放置している。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q18" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+
+        <div class="question-group"><span class="question-title">Q18. 世の中の真実や正解は、自分の頭で考えるより、まとめサイトやインフルエンサーの言うことの方が正しいと思う。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q6" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+
+        <div class="question-group"><span class="question-title">Q19. 成功している人やリア充を見ると、「親の金だ」「運が良いだけ」と粗探しをして見下す。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q13" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+
+        <div class="question-group"><span class="question-title">Q20. 他人に少しでも否定されたり絡まれたりするのが怖いため、ネット上でも自分の意見は一切主張しない。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q5" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
 
         <button id="btn-diagnose" class="btn-diagnose" onclick="showResult()">診断する</button>
     </div>
@@ -201,7 +211,6 @@
         const title = typeTitles[type];
         const desc = document.getElementById('type-desc').innerText;
         
-        // 反対属性（spanタグ以降）と太字タグを除外し、改行を整える処理
         const getCleanText = (letter) => {
             let text = letterDetails[letter];
             text = text.split("<br><span")[0];
