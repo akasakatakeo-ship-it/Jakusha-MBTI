@@ -77,6 +77,7 @@
     <div id="result-area" class="result-area">
         <div style="font-size: 14px; color: #666; margin-bottom: 5px;">あなたの弱者タイプは</div>
         <div id="type-name" class="type-name">XXXX</div>
+        <div id="type-title" style="font-size: 20px; font-weight: bold; color: #e74c3c; margin-bottom: 15px;"></div>
         <div id="type-desc" class="type-desc"></div>
         <div id="type-details" style="text-align: left; font-size: 13px; color: #555; background: #fff; padding: 15px; border-radius: 6px; margin-top: 15px; line-height: 1.6; display: none;"></div>
         <button class="btn-copy" onclick="executeCopy()">📋 結果をコピーする</button>
@@ -100,6 +101,25 @@
         V: "<b>【V】ヴィクティム</b><br>常に「自分は可哀想である」という被害者意識を持ち、感情的に現状を嘆く悲劇のヒロイン思考。<br><span style='font-size:11px;color:#888;'>※反対属性【L】ルーザーロジック：社会や他人のせいにして屁理屈で自己防衛する</span>",
         P: "<b>【P】プロクラスティネイト</b><br>現実の課題や面倒事をすべて先延ばしにし、無気力に時間を浪費する。<br><span style='font-size:11px;color:#888;'>※反対属性【C】コンパルジョン：無価値なルーティンを強迫的に繰り返す</span>",
         C: "<b>【C】コンパルジョン</b><br>ソシャゲの周回や特定の掲示板の巡回など、無価値なルーティンを強迫的（やらないと気が済まない状態）に繰り返す。<br><span style='font-size:11px;color:#888;'>※反対属性【P】プロクラスティネイト：面倒事をすべて先延ばしにする</span>"
+    };
+
+    const typeTitles = {
+        "ASLP": "口撃型寝そべり族",
+        "ASLC": "陰湿レスバトラー",
+        "ASVP": "逆ギレ型被害者",
+        "ASVC": "粘着クレーマー",
+        "ADLP": "異世界転生待機組",
+        "ADLC": "厄介自治厨オタク",
+        "ADVP": "攻撃的悲劇のヒロイン",
+        "ADVC": "狂気の厄介オタク",
+        "MSLP": "典型的なチー牛",
+        "MSLC": "無言のまとめサイト信者",
+        "MSVP": "隠れルサンチマン",
+        "MSVC": "孤独なソシャゲ廃人",
+        "MDLP": "脳内完結型ひきこもり",
+        "MDLC": "現実逃避の修行僧",
+        "MDVP": "完全透明人間",
+        "MDVC": "陰湿腐れハゲ"
     };
 
     const typeDescriptions = {
@@ -135,6 +155,7 @@
 
         document.getElementById('type-name').innerText = type;
         document.getElementById('type-desc').innerText = desc;
+        document.getElementById('type-title').innerText = typeTitles[type];
 
         let detailsHtml = letterDetails[type.charAt(0)] + "<hr style='border:none; border-top:1px dashed #ccc; margin:12px 0;'>" + 
                           letterDetails[type.charAt(1)] + "<hr style='border:none; border-top:1px dashed #ccc; margin:12px 0;'>" + 
@@ -156,8 +177,42 @@
 
     function executeCopy() {
         const type = document.getElementById('type-name').innerText;
+        const title = typeTitles[type];
         const desc = document.getElementById('type-desc').innerText;
-        const text = `【弱者MBTI診断】\n私のタイプは「${type}」です。\n\n${desc}\n\n#弱者MBTI`;
+        
+        // 文字列から「※反対属性...」以降を切り捨てて純粋な説明文を作る関数
+        const getCleanText = (letter) => {
+            let text = letterDetails[letter];
+            text = text.split("<br><span")[0]; // spanタグ以降（反対属性）を削除
+            text = text.replace("<b>", "").replace("</b>", ""); // 太字タグを削除
+            text = text.replace("<br>", "
+"); // 改行タグをテキストの改行に変換
+            return text;
+        };
+
+        // 4文字分の詳細テキストを結合
+        let detailsText = getCleanText(type.charAt(0)) + "
+
+" + 
+                          getCleanText(type.charAt(1)) + "
+
+" + 
+                          getCleanText(type.charAt(2)) + "
+
+" + 
+                          getCleanText(type.charAt(3));
+
+        // クリップボードにコピーする文章のフォーマット
+        const text = `【弱者MBTI診断】
+私のタイプは「${type}（${title}）」です。
+
+${desc}
+
+${detailsText}
+
+👇診断はこちらから
+https://project-1yzp5.vercel.app/
+#弱者MBTI`;
         
         navigator.clipboard.writeText(text).then(() => {
             let toast = document.getElementById('toast');
