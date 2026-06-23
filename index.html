@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>弱者MBTI診断</title>
+<style>
+    body { font-family: sans-serif; background-color: #f4f5f7; color: #333; line-height: 1.6; padding: 20px 20px 100px 20px; margin: 0; }
+    .container { max-width: 600px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+    h1 { font-size: 24px; text-align: center; border-bottom: 2px solid #e1e4e8; padding-bottom: 15px; margin-top: 0; }
+    .description { font-size: 14px; color: #555; margin-bottom: 30px; text-align: center; }
+    
+    .axis-title { font-size: 18px; font-weight: bold; color: #2c3e50; margin-top: 30px; margin-bottom: 10px; border-left: 4px solid #34495e; padding-left: 10px; }
+    
+    .question-group { margin-bottom: 20px; padding: 15px; background: #fafafa; border-radius: 8px; border: 1px solid #eee; }
+    .question-title { font-size: 14px; font-weight: bold; margin-bottom: 15px; display: block; }
+    
+    .slider-container { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; }
+    .label-left, .label-right { font-size: 12px; color: #666; width: 60px; }
+    .label-right { text-align: right; }
+    input[type="range"] { flex-grow: 1; margin: 0 15px; cursor: pointer; }
+    
+    /* 診断ボタンのデザインを追加 */
+    .btn-diagnose { background: #e74c3c; color: white; border: none; padding: 16px 32px; font-size: 18px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.2s; width: 100%; margin-top: 30px; margin-bottom: 20px; display: block; }
+    .btn-diagnose:hover { background: #c0392b; }
+
+    /* 初期状態を非表示(display: none)に変更 */
+    .result-area { display: none; margin-top: 40px; padding: 25px; background: #eef2f5; border-radius: 8px; text-align: center; position: sticky; bottom: 20px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); border: 2px solid #34495e; }
+    .type-name { font-size: 32px; font-weight: bold; letter-spacing: 4px; color: #2c3e50; margin-bottom: 10px; }
+    .type-desc { font-size: 15px; text-align: left; color: #444; background: #fff; padding: 15px; border-radius: 6px; }
+    
+    .btn-copy { background: #34495e; color: white; border: none; padding: 12px 24px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: background 0.2s; margin-top: 20px; width: 100%; }
+    .btn-copy:hover { background: #2c3e50; }
+    
+    .toast { visibility: hidden; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #333; color: #fff; padding: 12px 24px; border-radius: 8px; font-size: 14px; z-index: 200; opacity: 0; transition: opacity 0.3s; }
+    .toast.show { visibility: visible; opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>弱者MBTI診断</h1>
+    <p class="description">直感でシークバーを動かし、20の質問からあなたの弱者タイプ（全16種類）を特定します。</p>
+
+    <div id="questions">
+        <div class="axis-title">1. コミュニケーションスタイル</div>
+        <div class="question-group"><span class="question-title">Q1. ネット上で他人の意見に対し、批判的なコメントや反論を書き込むことが多い。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q1" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q2. SNSや掲示板では基本的にROM（閲覧するだけの人）であり、自分から発信することはほぼない。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q2" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q3. 炎上しているインフルエンサーや企業を見ると、匿名で叩き（非難）に参加したくなる。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q3" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q4. 現実の人間関係では絶対に言えないような暴言でも、ネット上なら簡単に書き込める。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q4" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q5. 他人に否定されるのが怖いため、ネット上でも自分のアカウントで堂々と意見を主張することはない。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q5" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+
+        <div class="axis-title">2. 認知の歪み</div>
+        <div class="question-group"><span class="question-title">Q6. 世の中の真実や正解は、まとめサイトやインフルエンサーの発言の中にあると思う。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q6" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q7. アニメやゲームの世界の住人になった自分をよく想像し、現実逃避をする。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q7" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q8. 特定の界隈で流行っているネットスラング（ネット上の俗語）を、現実の会話や思考でも無意識に使う。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q8" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q9. 嫌なことがあると、自分が異世界で特殊能力を持って無双（圧倒的に活躍）している姿を空想して気を紛らわせる。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q9" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q10. 「〇〇な人間は〇〇だ」という、ネット上の極端なレッテル貼り（偏見）をそのまま信じてしまう。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q10" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+
+        <div class="axis-title">3. 自己正当化の手段</div>
+        <div class="question-group"><span class="question-title">Q11. 自分が評価されないのは、社会の仕組みや他人の見る目がないからだと論理的に説明できる。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q11" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q12. 日々の生活で「自分ばかり損をしている、かわいそうだ」と感情的に落ち込むことが多い。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q12" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q13. 成功している人を見ると、「親のすねをかじっただけ」「運が良かっただけ」と理由をつけて見下す。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q13" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q14. 自分の人生がうまくいかないのは、生まれ育った環境や遺伝のせいであり、自分ではどうしようもないと絶望している。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q14" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q15. 他人からアドバイスを受けた際、素直に聞き入れず、「でも」「だって」と反論して自分の正しさを主張する。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q15" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+
+        <div class="axis-title">4. 行動パターン</div>
+        <div class="question-group"><span class="question-title">Q16. 面倒な課題や手続きは、ギリギリになるか手遅れになるまで放置してしまう。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q16" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q17. ソシャゲ（ソーシャルゲーム）のログインなど、毎日やらないと気が済まないルーティンがある。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q17" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q18. 休日は何か生産的なことをしようと思うものの、結局スマホを眺めるだけで1日が終わる。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q18" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q19. 掲示板やSNSを、新しい情報がないと分かっていても無意識に何度も更新（リロード）してしまう。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q19" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+        <div class="question-group"><span class="question-title">Q20. 部屋の掃除や整理整頓が必要だと分かっていても、行動を起こす気力が湧かず長期間放置している。</span><div class="slider-container"><span class="label-left">全くない</span><input type="range" class="calc-slider" id="q20" min="0" max="100" value="50"><span class="label-right">よくある</span></div></div>
+
+        <button id="btn-diagnose" class="btn-diagnose" onclick="showResult()">診断する</button>
+    </div>
+
+    <div id="result-area" class="result-area">
+        <div style="font-size: 14px; color: #666; margin-bottom: 5px;">あなたの弱者タイプは</div>
+        <div id="type-name" class="type-name">XXXX</div>
+        <div id="type-desc" class="type-desc"></div>
+        <button class="btn-copy" onclick="executeCopy()">📋 結果をコピーする</button>
+    </div>
+
+</div>
+
+<div id="toast" class="toast">コピーしました</div>
+
+<script>
+    const typeDescriptions = {
+        A: "ネット上では雄弁に他者を叩く攻撃性を持ち、",
+        M: "現実でもネットでも気配を消して傍観に徹し、",
+        S: "ネットの偏ったテンプレ情報を世界の真実だと信じ込み、",
+        D: "脳内の都合の良い妄想世界に精神を避難させ、",
+        L: "自分の不遇を社会のせいにして独自の屁理屈で自己防衛を図りつつ、",
+        V: "「自分は常に被害者だ」という悲劇のヒロイン思考に浸りつつ、",
+        P: "現実のあらゆる面倒事を先延ばしにして無気力に生きるタイプである。" ,
+        C: "ソシャゲの周回やネット巡回など、無価値なルーティンに強迫的に縛られて生きるタイプである。" 
+    };
+
+    // 計算処理のみを行う関数
+    function calculateResult() {
+        const getVal = (id) => parseInt(document.getElementById(id).value);
+        
+        let scoreA = getVal('q1') + (100 - getVal('q2')) + getVal('q3') + getVal('q4') + (100 - getVal('q5'));
+        let scoreS = getVal('q6') + (100 - getVal('q7')) + getVal('q8') + (100 - getVal('q9')) + getVal('q10');
+        let scoreL = getVal('q11') + (100 - getVal('q12')) + getVal('q13') + (100 - getVal('q14')) + getVal('q15');
+        let scoreP = getVal('q16') + (100 - getVal('q17')) + getVal('q18') + (100 - getVal('q19')) + getVal('q20');
+
+        let type = "";
+        type += (scoreA >= 250) ? "A" : "M";
+        type += (scoreS >= 250) ? "S" : "D";
+        type += (scoreL >= 250) ? "L" : "V";
+        type += (scoreP >= 250) ? "P" : "C";
+
+        let desc = typeDescriptions[type.charAt(0)] + 
+                   typeDescriptions[type.charAt(1)] + 
+                   typeDescriptions[type.charAt(2)] + 
+                   typeDescriptions[type.charAt(3)];
+
+        document.getElementById('type-name').innerText = type;
+        document.getElementById('type-desc').innerText = desc;
+    }
+
+    // 診断ボタンが押された際の表示切り替え処理
+    function showResult() {
+        calculateResult();
+        document.getElementById('result-area').style.display = 'block';
+        document.getElementById('btn-diagnose').style.display = 'none'; // 診断後はボタンを非表示にする
+        
+        // 画面下部へ滑らかにスクロールさせる
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    function executeCopy() {
+        const type = document.getElementById('type-name').innerText;
+        const desc = document.getElementById('type-desc').innerText;
+        const text = `【弱者MBTI診断】\n私のタイプは「${type}」です。\n\n${desc}\n\n#弱者MBTI`;
+        
+        navigator.clipboard.writeText(text).then(() => {
+            let toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }).catch(err => {
+            alert('コピーに失敗しました。');
+        });
+    }
+</script>
+</body>
+</html>
