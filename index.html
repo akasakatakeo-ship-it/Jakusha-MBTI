@@ -78,6 +78,7 @@
         <div style="font-size: 14px; color: #666; margin-bottom: 5px;">あなたの弱者タイプは</div>
         <div id="type-name" class="type-name">XXXX</div>
         <div id="type-desc" class="type-desc"></div>
+        <div id="type-details" style="text-align: left; font-size: 13px; color: #555; background: #fff; padding: 15px; border-radius: 6px; margin-top: 15px; line-height: 1.6; display: none;"></div>
         <button class="btn-copy" onclick="executeCopy()">📋 結果をコピーする</button>
     </div>
 
@@ -86,6 +87,17 @@
 <div id="toast" class="toast">コピーしました</div>
 
 <script>
+    const letterDetails = {
+        A: "<b>【A】アグレッシブ</b><br>ネット上では強気になり、他者への批判や攻撃的な発言を好むネット弁慶。",
+        M: "<b>【M】ミュート</b><br>現実でもネットでも自ら発信することはなく、常に気配を消してROM（閲覧するだけの人）に徹する傍観者。",
+        S: "<b>【S】ステレオタイプ</b><br>まとめサイトやSNSの偏ったテンプレ情報を世界の真実であると鵜呑みにする。",
+        D: "<b>【D】ディルージョン</b><br>現実から目を背け、脳内の都合の良い妄想（二次元や独自の設定）の世界に精神を避難させる。",
+        L: "<b>【L】ルーザーロジック</b><br>自分が評価されないのは社会や他人のせいであると、独自の屁理屈（敗者の論理）を用いて自己防衛を図る。",
+        V: "<b>【V】ヴィクティム</b><br>常に「自分は可哀想である」という被害者意識を持ち、感情的に現状を嘆く悲劇のヒロイン思考。",
+        P: "<b>【P】プロクラスティネイト</b><br>現実の課題や面倒事をすべて先延ばしにし、無気力に時間を浪費する。",
+        C: "<b>【C】コンパルジョン</b><br>ソシャゲの周回や特定の掲示板の巡回など、無価値なルーティンを強迫的（やらないと気が済まない状態）に繰り返す。"
+    };
+
     const typeDescriptions = {
         A: "ネット上では雄弁に他者を叩く攻撃性を持ち、",
         M: "現実でもネットでも気配を消して傍観に徹し、",
@@ -119,6 +131,13 @@
 
         document.getElementById('type-name').innerText = type;
         document.getElementById('type-desc').innerText = desc;
+
+        let detailsHtml = letterDetails[type.charAt(0)] + "<hr style='border:none; border-top:1px dashed #ccc; margin:12px 0;'>" + 
+                          letterDetails[type.charAt(1)] + "<hr style='border:none; border-top:1px dashed #ccc; margin:12px 0;'>" + 
+                          letterDetails[type.charAt(2)] + "<hr style='border:none; border-top:1px dashed #ccc; margin:12px 0;'>" + 
+                          letterDetails[type.charAt(3)];
+        document.getElementById('type-details').innerHTML = detailsHtml;
+        document.getElementById('type-details').style.display = "block";
     }
 
     // 診断ボタンが押された際の表示切り替え処理
