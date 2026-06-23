@@ -20,233 +20,52 @@
     
     .btn-diagnose { background: #e74c3c; color: white; border: none; padding: 16px 32px; font-size: 18px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.2s; width: 100%; margin-top: 30px; margin-bottom: 20px; display: block; }
     .btn-diagnose:hover { background: #c0392b; }
-
-    .result-area { display: none; margin-top: 40px; padding: 25px; background: #eef2f5; border-radius: 8px; text-align: center; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); border: 2px solid #34495e; }
-    .type-name { font-size: 32px; font-weight: bold; letter-spacing: 4px; color: #2c3e50; margin-bottom: 5px; }
-    .type-title { font-size: 20px; font-weight: bold; color: #e74c3c; margin-bottom: 15px; }
-    .type-desc { font-size: 15px; text-align: left; color: #444; background: #fff; padding: 15px; border-radius: 6px; }
-    .type-details { text-align: left; font-size: 13px; color: #555; background: #fff; padding: 15px; border-radius: 6px; margin-top: 15px; line-height: 1.6; display: none; }
-    
-    .btn-copy { background: #34495e; color: white; border: none; padding: 12px 24px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: background 0.2s; margin-top: 20px; width: 100%; }
-    .btn-copy:hover { background: #2c3e50; }
-    
-    .toast { visibility: hidden; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #333; color: #fff; padding: 12px 24px; border-radius: 8px; font-size: 14px; z-index: 200; opacity: 0; transition: opacity 0.3s; }
-    .toast.show { visibility: visible; opacity: 1; }
 </style>
 </head>
-<body style="overflow: hidden;">
-<div id="suspension-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 9999; display: flex; justify-content: center; align-items: center;">
+<body>
+
+<div id="suspension-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 9999; display: none; justify-content: center; align-items: center;">
     <div style="background: white; padding: 40px; border-radius: 12px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); max-width: 90%;">
         <div style="font-size: 22px; font-weight: bold; color: #e74c3c; margin-bottom: 15px;">サービス一時停止中</div>
         <div style="font-size: 16px; color: #333; font-weight: bold;">解除には：ロール付与<br><span style="font-size: 14px; color: #666; font-weight: normal; margin-top: 10px; display: inline-block;">（アナキンに問い合わせ）</span></div>
     </div>
 </div>
-<!-- overlay-end -->
 
 <div class="container">
     <h1>弱者MBTI診断</h1>
     <p class="description">ありのままの自分で直感的に回答し、あなたの弱者タイプ（全16種類）を特定してください。</p>
 
     <div id="questions">
-        <div class="question-group"><span class="question-title">Q1. 現実で疲れたとき、物語や架空の世界に没入することで回復することが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q1" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
+        <div class="question-group"><span class="question-title">Q1. 現実で疲れたとき、物語や架空の世界に没入することで回復することが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
+        <div class="question-group"><span class="question-title">Q2. SNSでは発信するより閲覧中心で、他者の反応を気にして行動が制約される。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
+        <div class="question-group"><span class="question-title">Q3. 他人からの評価や視線が、自分の意思決定に影響することが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
+        <div class="question-group"><span class="question-title">Q4. 物事の原因を、感情よりも社会構造やシステムの問題として捉える傾向がある。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
+        <div class="question-group"><span class="question-title">Q5. 人や集団をネット的なラベルや類型で整理して理解することが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
+        <div class="question-group"><span class="question-title">Q6. 成功や失敗は個人の努力よりも環境や運に左右されると感じる。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
+        <div class="question-group"><span class="question-title">Q7. 物事を直感で判断することが多く、細かい分析は後回しになりやすい。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
+        <div class="question-group"><span class="question-title">Q8. ルールや手順が明確でない状況ではストレスを感じやすい。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
+        <div class="question-group"><span class="question-title">Q9. 一人で過ごす時間の方がエネルギーが回復する。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
+        <div class="question-group"><span class="question-title">Q10. 意見が対立する場面では、議論に参加するより距離を置くことが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
+        <div class="question-group"><span class="question-title">Q11. 新しい体験よりも、慣れた行動や環境を選びやすい。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
+        <div class="question-group"><span class="question-title">Q12. 情報は詳細よりも要約や結論だけを好む傾向がある。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
+        <div class="question-group"><span class="question-title">Q13. 不確実な選択肢があると、即断よりも保留を選びやすい。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
+        <div class="question-group"><span class="question-title">Q14. 他人の助言に対して、まず適用できない理由を考えることが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
+        <div class="question-group"><span class="question-title">Q15. 過去の出来事を繰り返し思い出し、現在の感情に影響することがある。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
+        <div class="question-group"><span class="question-title">Q16. 他人の成功を見ると、能力よりも環境や条件の差に注目しやすい。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
+        <div class="question-group"><span class="question-title">Q17. 他人と自分を比較して、自分の立ち位置を確認することが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
+        <div class="question-group"><span class="question-title">Q18. 複雑な問題でも、単純化された説明のほうが納得しやすい。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
+        <div class="question-group"><span class="question-title">Q19. デジタル上の通知や更新を、必要がなくても繰り返し確認してしまう。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
+        <div class="question-group"><span class="question-title">Q20. 将来の自分を具体的に想像し、その行動や状況を頭の中でシミュレーションすることが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
 
-        <div class="question-group"><span class="question-title">Q2. SNSでは発信するより閲覧中心で、他者の反応を気にして行動が制約される。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q2" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-
-        <div class="question-group"><span class="question-title">Q3. 他人からの評価や視線が、自分の意思決定に影響することが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q3" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-
-        <div class="question-group"><span class="question-title">Q4. 物事の原因を、感情よりも社会構造やシステムの問題として捉える傾向がある。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q4" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-
-        <div class="question-group"><span class="question-title">Q5. 人や集団をネット的なラベルや類型で整理して理解することが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q5" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-
-        <div class="question-group"><span class="question-title">Q6. 成功や失敗は個人の努力よりも環境や運に左右されると感じる。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q6" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-
-        <div class="question-group"><span class="question-title">Q7. 物事を直感で判断することが多く、細かい分析は後回しになりやすい。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q7" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-
-        <div class="question-group"><span class="question-title">Q8. ルールや手順が明確でない状況ではストレスを感じやすい。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q8" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-
-        <div class="question-group"><span class="question-title">Q9. 一人で過ごす時間の方がエネルギーが回復する。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q9" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-
-        <div class="question-group"><span class="question-title">Q10. 意見が対立する場面では、議論に参加するより距離を置くことが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q10" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-
-        <div class="question-group"><span class="question-title">Q11. 新しい体験よりも、慣れた行動や環境を選びやすい。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q11" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-
-        <div class="question-group"><span class="question-title">Q12. 情報は詳細よりも要約や結論だけを好む傾向がある。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q12" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-
-        <div class="question-group"><span class="question-title">Q13. 不確実な選択肢があると、即断よりも保留を選びやすい。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q13" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-
-        <div class="question-group"><span class="question-title">Q14. 他人の助言に対して、まず適用できない理由を考えることが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q14" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-
-        <div class="question-group"><span class="question-title">Q15. 過去の出来事を繰り返し思い出し、現在の感情に影響することがある。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q15" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-
-        <div class="question-group"><span class="question-title">Q16. 他人の成功を見ると、能力よりも環境や条件の差に注目しやすい。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q16" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-
-        <div class="question-group"><span class="question-title">Q17. 他人と自分を比較して、自分の立ち位置を確認することが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q17" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-
-        <div class="question-group"><span class="question-title">Q18. 複雑な問題でも、単純化された説明のほうが納得しやすい。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q18" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-
-        <div class="question-group"><span class="question-title">Q19. デジタル上の通知や更新を、必要がなくても繰り返し確認してしまう。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q19" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-
-        <div class="question-group"><span class="question-title">Q20. 将来の自分を具体的に想像し、その行動や状況を頭の中でシミュレーションすることが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" id="q20" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-
-        <button id="btn-diagnose" class="btn-diagnose" onclick="showResult()">診断する</button>
+        <button id="btn-diagnose" class="btn-diagnose" onclick="triggerSuspension()">診断する</button>
     </div>
-
-    <div id="result-area" class="result-area">
-        <div style="font-size: 14px; color: #666; margin-bottom: 5px;">あなたの弱者タイプは</div>
-        <div id="type-name" class="type-name">XXXX</div>
-        <div id="type-title" class="type-title"></div>
-        <div id="type-desc" class="type-desc"></div>
-        <div id="type-details" class="type-details"></div>
-        
-        <button class="btn-copy" onclick="executeCopy()">📋 結果をコピーする</button>
-        <div style="display:flex; gap:10px; margin-top:10px;">
-            <button id="btn-toggle" class="btn-copy" style="margin-top:0; background:#7f8c8d; font-size:14px;" onclick="toggleDetails()">🔽 最小化する</button>
-            <button id="btn-retake" class="btn-copy" style="margin-top:0; background:#95a5a6; font-size:14px;" onclick="retakeTest()">🔄 やり直す</button>
-        </div>
-    </div>
-
 </div>
 
-<div id="toast" class="toast">コピーしました</div>
-
 <script>
-    const typeTitles = {
-        "ASLP": "口撃型寝そべり族",
-        "ASLC": "陰湿レスバトラー",
-        "ASVP": "逆ギレ型被害者",
-        "ASVC": "粘着クレーマー",
-        "ADLP": "異世界転生待機組",
-        "ADLC": "厄介自治厨オタク",
-        "ADVP": "攻撃的悲劇のヒロイン",
-        "ADVC": "狂気の厄介オタク",
-        "MSLP": "典型的なチー牛",
-        "MSLC": "無言のまとめサイト信者",
-        "MSVP": "隠れルサンチマン",
-        "MSVC": "孤独なソシャゲ廃人",
-        "MDLP": "脳内完結型ひきこもり",
-        "MDLC": "現実逃避の修行僧",
-        "MDVP": "完全透明人間",
-        "MDVC": "陰湿腐れハゲ"
-    };
-
-    const letterDetails = {
-        A: "<b>【A】アグレッシブ</b><br>ネット上では強気になり、他者への批判や攻撃的な発言を好むネット弁慶。<br><span style='font-size:11px;color:#888;'>※反対属性【M】ミュート：一切発信せず傍観に徹する</span>",
-        M: "<b>【M】ミュート</b><br>現実でもネットでも自ら発信することはなく、常に気配を消してROM（閲覧するだけの人）に徹する傍観者。<br><span style='font-size:11px;color:#888;'>※反対属性【A】アグレッシブ：ネット上で攻撃的な発言を好む</span>",
-        S: "<b>【S】ステレオタイプ</b><br>まとめサイトやSNSの偏ったテンプレ情報を世界の真実であると鵜呑みにする。<br><span style='font-size:11px;color:#888;'>※反対属性【D】ディルージョン：現実から目を背け妄想の世界に逃避する</span>",
-        D: "<b>【D】ディルージョン</b><br>現実から目を背け、脳内の都合の良い妄想（二次元や独自の設定）の世界に精神を避難させる。<br><span style='font-size:11px;color:#888;'>※反対属性【S】ステレオタイプ：ネットの偏った情報を鵜呑みにする</span>",
-        L: "<b>【L】ルーザーロジック</b><br>自分が評価されないのは社会や他人のせいであると、独自の屁理屈（敗者の論理）を用いて自己防衛を図る。<br><span style='font-size:11px;color:#888;'>※反対属性【V】ヴィクティム：自分は可哀想だと被害者意識に浸る</span>",
-        V: "<b>【V】ヴィクティム</b><br>常に「自分は可哀想である」という被害者意識を持ち、感情的に現状を嘆く悲劇のヒロイン思考。<br><span style='font-size:11px;color:#888;'>※反対属性【L】ルーザーロジック：社会や他人のせいにして屁理屈で自己防衛する</span>",
-        P: "<b>【P】プロクラスティネイト</b><br>現実の課題や面倒事をすべて先延ばしにし、無気力に時間を浪費する。<br><span style='font-size:11px;color:#888;'>※反対属性【C】コンパルジョン：無価値なルーティンを強迫的に繰り返す</span>",
-        C: "<b>【C】コンパルジョン</b><br>ソシャゲの周回や特定の掲示板の巡回など、無価値なルーティンを強迫的（やらないと気が済まない状態）に繰り返す。<br><span style='font-size:11px;color:#888;'>※反対属性【P】プロクラスティネイト：面倒事をすべて先延ばしにする</span>"
-    };
-
-    const typeDescriptions = {
-        A: "ネット上では雄弁に他者を叩く攻撃性を持ち、",
-        M: "現実でもネットでも気配を消して傍観に徹し、",
-        S: "ネットの偏ったテンプレ情報を世界の真実だと信じ込み、",
-        D: "脳内の都合の良い妄想世界に精神を避難させ、",
-        L: "自分の不遇を社会のせいにして独自の屁理屈で自己防衛を図りつつ、",
-        V: "「自分は常に被害者だ」という悲劇のヒロイン思考に浸りつつ、",
-        P: "現実のあらゆる面倒事を先延ばしにして無気力に生きるタイプである。" ,
-        C: "ソシャゲの周回やネット巡回など、無価値なルーティンに強迫的に縛られて生きるタイプである。" 
-    };
-
-    function calculateResult() {
-        const getVal = (id) => parseInt(document.getElementById(id).value);
-        
-        // A/M軸（Q2, Q3, Q9, Q10, Q17）: すべてM属性に寄る設問。そう思わない(0)がA、そう思う(100)がM。
-        let scoreA = (100 - getVal('q2')) + (100 - getVal('q3')) + (100 - getVal('q9')) + (100 - getVal('q10')) + (100 - getVal('q17'));
-        
-        // S/D軸（Q1, Q5, Q12, Q18, Q20）: Q1, Q20はD属性。Q5, Q12, Q18はS属性。
-        let scoreS = (100 - getVal('q1')) + getVal('q5') + getVal('q12') + getVal('q18') + (100 - getVal('q20'));
-        
-        // L/V軸（Q4, Q6, Q14, Q15, Q16）: Q15はV属性。その他はL属性。
-        let scoreL = getVal('q4') + getVal('q6') + getVal('q14') + (100 - getVal('q15')) + getVal('q16');
-        
-        // P/C軸（Q7, Q8, Q11, Q13, Q19）: Q7, Q13はP属性。Q8, Q11, Q19はC属性。
-        let scoreP = getVal('q7') + (100 - getVal('q8')) + (100 - getVal('q11')) + getVal('q13') + (100 - getVal('q19'));
-
-        let type = "";
-        type += (scoreA >= 250) ? "A" : "M";
-        type += (scoreS >= 250) ? "S" : "D";
-        type += (scoreL >= 250) ? "L" : "V";
-        type += (scoreP >= 250) ? "P" : "C";
-
-        let desc = typeDescriptions[type.charAt(0)] + 
-                   typeDescriptions[type.charAt(1)] + 
-                   typeDescriptions[type.charAt(2)] + 
-                   typeDescriptions[type.charAt(3)];
-
-        document.getElementById('type-name').innerText = type;
-        document.getElementById('type-title').innerText = typeTitles[type];
-        document.getElementById('type-desc').innerText = desc;
-
-        let detailsHtml = letterDetails[type.charAt(0)] + "<hr style='border:none; border-top:1px dashed #ccc; margin:12px 0;'>" + 
-                          letterDetails[type.charAt(1)] + "<hr style='border:none; border-top:1px dashed #ccc; margin:12px 0;'>" + 
-                          letterDetails[type.charAt(2)] + "<hr style='border:none; border-top:1px dashed #ccc; margin:12px 0;'>" + 
-                          letterDetails[type.charAt(3)];
-        document.getElementById('type-details').innerHTML = detailsHtml;
-    }
-
-    function showResult() {
-        calculateResult();
-        document.getElementById('result-area').style.display = 'block';
-        document.getElementById('type-details').style.display = 'block';
-        document.getElementById('btn-diagnose').style.display = 'none';
-        
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    }
-
-    function toggleDetails() {
-        let details = document.getElementById('type-details');
-        let btn = document.getElementById('btn-toggle');
-        if (details.style.display === 'none') {
-            details.style.display = 'block';
-            btn.innerText = '🔽 最小化する';
-        } else {
-            details.style.display = 'none';
-            btn.innerText = '▶️ 詳細を見る';
-        }
-    }
-
-    function retakeTest() {
-        document.querySelectorAll('.calc-slider').forEach(el => el.value = 50);
-        document.getElementById('result-area').style.display = 'none';
-        document.getElementById('btn-diagnose').style.display = 'block';
-        
-        document.getElementById('type-details').style.display = 'block';
-        document.getElementById('btn-toggle').innerText = '🔽 最小化する';
-        
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function executeCopy() {
-        const type = document.getElementById('type-name').innerText;
-        const title = typeTitles[type];
-        const desc = document.getElementById('type-desc').innerText;
-        
-        const getCleanText = (letter) => {
-            let text = letterDetails[letter];
-            text = text.split("<br><span")[0];
-            text = text.replace(/<b>/g, "").replace(/<\/b>/g, "");
-            text = text.replace(/<br>/g, "\n");
-            return text;
-        };
-
-        let detailsText = getCleanText(type.charAt(0)) + "\n\n" + 
-                          getCleanText(type.charAt(1)) + "\n\n" + 
-                          getCleanText(type.charAt(2)) + "\n\n" + 
-                          getCleanText(type.charAt(3));
-
-        const text = `【弱者MBTI診断】\n私のタイプは「${type}（${title}）」です。\n\n${desc}\n\n${detailsText}\n\n👇診断はこちらから\nhttps://project-1yzp5.vercel.app/\n#弱者MBTI`;
-        
-        navigator.clipboard.writeText(text).then(() => {
-            let toast = document.getElementById('toast');
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 2500);
-        }).catch(err => {
-            alert('コピーに失敗しました。');
-        });
+    function triggerSuspension() {
+        // ポップアップを表示し、背景のスクロールを禁止して画面をロックする
+        document.getElementById('suspension-overlay').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
     }
 </script>
 </body>
