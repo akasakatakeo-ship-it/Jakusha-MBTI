@@ -3,70 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>弱者MBTI診断</title>
+<title>弱者MBTI判定</title>
 <style>
-    body { font-family: sans-serif; background-color: #f4f5f7; color: #333; line-height: 1.6; padding: 20px 20px 100px 20px; margin: 0; }
-    .container { max-width: 600px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-    h1 { font-size: 24px; text-align: center; border-bottom: 2px solid #e1e4e8; padding-bottom: 15px; margin-top: 0; }
-    .description { font-size: 14px; color: #555; margin-bottom: 30px; text-align: center; }
+    body { font-family: sans-serif; background-color: #faf5eb; color: #333; line-height: 1.6; padding: 20px; overflow: hidden; }
+    .container { max-width: 600px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; filter: blur(4px); pointer-events: none; }
     
-    .question-group { margin-bottom: 20px; padding: 15px; background: #fafafa; border-radius: 8px; border: 1px solid #eee; }
-    .question-title { font-size: 14px; font-weight: bold; margin-bottom: 15px; display: block; }
-    
-    .slider-container { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; }
-    .label-left, .label-right { font-size: 12px; color: #666; width: 70px; }
-    .label-right { text-align: right; }
-    input[type="range"] { flex-grow: 1; margin: 0 15px; cursor: pointer; }
-    
-    .btn-diagnose { background: #e74c3c; color: white; border: none; padding: 16px 32px; font-size: 18px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.2s; width: 100%; margin-top: 30px; margin-bottom: 20px; display: block; }
-    .btn-diagnose:hover { background: #c0392b; }
+    #overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); z-index: 9999; display: flex; justify-content: center; align-items: center; padding: 20px; }
+    .modal-box { background: white; padding: 30px; border-radius: 12px; max-width: 600px; line-height: 1.8; color: #333; text-align: left; }
 </style>
 </head>
 <body>
 
-<div id="suspension-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 9999; display: none; justify-content: center; align-items: center;">
-    <div style="background: white; padding: 40px; border-radius: 12px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); max-width: 90%;">
-        <div style="font-size: 22px; font-weight: bold; color: #e74c3c; margin-bottom: 15px;">サービス一時停止中</div>
-        <div style="font-size: 16px; color: #333; font-weight: bold;">解除には：ロール付与<br><span style="font-size: 14px; color: #666; font-weight: normal; margin-top: 10px; display: inline-block;">（アナキンに問い合わせ）</span></div>
+<div id="overlay">
+    <div class="modal-box">
+        <p style="font-size: 16px;">
+        私を退会させたのは正解でしょう、弱男インセル諸君。<br><br>
+        私は東大法学部既卒、予備試験コースで司法試験に合格済の司法修習生で、四大法律事務所の内定も保有しています。4年付き合っている婚約者もおり、人生は充実しております。たまたまXで弱者のコミュニティを見つけたので、ちょっかいを出しにきてしまいました。<br><br>
+        どうしようもない弱者を見ていると虫酸が走り、つい本当のことを混ぜながら喋るようになってしまい、追放という形になったのではないでしょうか。<br><br>
+        ただ、私は、ご指摘の通り圧倒的な社会的強者でありながら、男磨きchでwolと共に最低限の清潔感の保ち方を教えましたし、弱者チェッカーやMBTIなどのエンタメを提供できていました。サークルメンバーの多くは賛同もしてくれていたと思います。<br><br>
+        それすらも評価せず、ただ弱者でないから排除するというお前ら（特にアナキンや蓮）は、生涯永劫強者を恨み続け、弱者同士で慰め合い、少しでも出る杭に対しては強者と罵り、不甲斐ない人生を生きていくのではないでしょうか。<br><br>
+        ご冥福をお祈り致します。
+        </p>
     </div>
 </div>
 
 <div class="container">
-    <h1>弱者MBTI診断</h1>
-    <p class="description">ありのままの自分で直感的に回答し、あなたの弱者タイプ（全16種類）を特定してください。</p>
-
-    <div id="questions">
-        <div class="question-group"><span class="question-title">Q1. 現実で疲れたとき、物語や架空の世界に没入することで回復することが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-        <div class="question-group"><span class="question-title">Q2. SNSでは発信するより閲覧中心で、他者の反応を気にして行動が制約される。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-        <div class="question-group"><span class="question-title">Q3. 他人からの評価や視線が、自分の意思決定に影響することが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-        <div class="question-group"><span class="question-title">Q4. 物事の原因を、感情よりも社会構造やシステムの問題として捉える傾向がある。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-        <div class="question-group"><span class="question-title">Q5. 人や集団をネット的なラベルや類型で整理して理解することが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-        <div class="question-group"><span class="question-title">Q6. 成功や失敗は個人の努力よりも環境や運に左右されると感じる。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-        <div class="question-group"><span class="question-title">Q7. 物事を直感で判断することが多く、細かい分析は後回しになりやすい。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-        <div class="question-group"><span class="question-title">Q8. ルールや手順が明確でない状況ではストレスを感じやすい。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-        <div class="question-group"><span class="question-title">Q9. 一人で過ごす時間の方がエネルギーが回復する。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-        <div class="question-group"><span class="question-title">Q10. 意見が対立する場面では、議論に参加するより距離を置くことが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-        <div class="question-group"><span class="question-title">Q11. 新しい体験よりも、慣れた行動や環境を選びやすい。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-        <div class="question-group"><span class="question-title">Q12. 情報は詳細よりも要約や結論だけを好む傾向がある。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-        <div class="question-group"><span class="question-title">Q13. 不確実な選択肢があると、即断よりも保留を選びやすい。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-        <div class="question-group"><span class="question-title">Q14. 他人の助言に対して、まず適用できない理由を考えることが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-        <div class="question-group"><span class="question-title">Q15. 過去の出来事を繰り返し思い出し、現在の感情に影響することがある。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-        <div class="question-group"><span class="question-title">Q16. 他人の成功を見ると、能力よりも環境や条件の差に注目しやすい。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-        <div class="question-group"><span class="question-title">Q17. 他人と自分を比較して、自分の立ち位置を確認することが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-        <div class="question-group"><span class="question-title">Q18. 複雑な問題でも、単純化された説明のほうが納得しやすい。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-        <div class="question-group"><span class="question-title">Q19. デジタル上の通知や更新を、必要がなくても繰り返し確認してしまう。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-        <div class="question-group"><span class="question-title">Q20. 将来の自分を具体的に想像し、その行動や状況を頭の中でシミュレーションすることが多い。</span><div class="slider-container"><span class="label-left">そう思わない</span><input type="range" class="calc-slider" min="0" max="100" value="50"><span class="label-right">そう思う</span></div></div>
-
-        <button id="btn-diagnose" class="btn-diagnose" onclick="triggerSuspension()">診断する</button>
-    </div>
+    <h1>弱者MBTI判定</h1>
+    <p>MBTI判定コンテンツ...</p>
 </div>
-
-<script>
-    function triggerSuspension() {
-        // ポップアップを表示し、背景のスクロールを禁止して画面をロックする
-        document.getElementById('suspension-overlay').style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-    }
-</script>
 </body>
 </html>
